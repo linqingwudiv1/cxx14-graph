@@ -99,10 +99,13 @@ struct graph
   // Incidence
   edge_list edges(vertex_t v) const;
   std::size_t degree(vertex_t v) const;
-
   edge_iterator find_edge(vertex_t, vertex_t) const;
   bool has_edge(vertex_t, vertex_t) const;
   edge_t edge(vertex_t, vertex_t) const;
+
+
+  vertex_iterator find_vertex(vertex_t) const;
+  bool has_vertex(V const&) const;
 
   vertex_t first(edge_t e) const;
   vertex_t second(edge_t e) const;
@@ -111,9 +114,11 @@ struct graph
   // Incremental construction
   vertex_t add_vertex();
   vertex_t add_vertex(V const&);
+  bool remove_vertex(V const&);
 
   edge_t add_edge(vertex_t, vertex_t);
   edge_t add_edge(vertex_t, vertex_t, E const&);
+  bool remove_edge(vertex_t u, vertex_t v, E const& x);
 
   vertex_set verts_;
   edge_set edges_;
@@ -249,6 +254,28 @@ graph<V, E>::edge(vertex_t u, vertex_t v) const
   return *find_edge(u, v);
 }
 
+template<typename V, typename E>
+auto graph<V, E>::find_vertex(vertex_t v) const -> vertex_iterator
+{
+    for (vertex_t ver: verts_ )
+    {
+        if(ver == v)
+        {
+            return begin_vertices() + ver;
+        }
+    }
+    return end_vertices();
+}
+
+// Returns index, index > -1 if the vertex is in the graph.
+template<typename V, typename E>
+bool
+graph<V, E>::has_vertex(V const& v) const
+{
+    return find_vertex(v) != end_vertices();
+}
+
+
 // In the edge {u, v}, returns u.
 //
 // TODO: I don't like this function. An undirected edge doesn't really
@@ -303,6 +330,13 @@ graph<V, E>::add_vertex(V const& v)
 }
 
 template<typename V, typename E>
+bool graph<V,E>::remove_vertex(V const& v)
+{
+    //auto iterator = find_vertex(v);
+    //verts_.erase(i);
+}
+
+template<typename V, typename E>
 edge_t
 graph<V, E>::add_edge(vertex_t u, vertex_t v)
 {
@@ -324,6 +358,16 @@ graph<V, E>::add_edge(vertex_t u, vertex_t v, E const& x)
   verts_[u].edges_.push_back(e);
   verts_[v].edges_.push_back(e);
   return e;
+}
+
+template<typename V, typename E>
+inline bool graph<V, E>::remove_edge(vertex_t u, vertex_t v, E const &x)
+{
+    verts_[u].edges_.erase();
+    verts_[v].edges_.erase();
+    //verts_[u].erase();
+    //verts_[v]
+    return false;
 }
 
 } // namespace origin
