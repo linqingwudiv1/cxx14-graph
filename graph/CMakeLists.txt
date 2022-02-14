@@ -16,6 +16,14 @@ add_library(graph
   output.cpp
   dfs.cpp
   queue.cpp
+
+   utility.hpp
+  common.hpp
+  graph.hpp
+  digraph.hpp
+  output.hpp
+  dfs.hpp
+  queue.hpp
 )
 
 
