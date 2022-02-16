@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <atomic>
 
 
 namespace origin {
@@ -37,6 +38,19 @@ auto edge_label(std::vector<T>& vec) {
   return [&vec](edge_t e) -> T& { return vec[e]; };
 }
 
+// assign new id 
+vertex_t new_edge_id()
+{
+	static std::atomic<vertex_t> cur_max_vertex = ATOMIC_VAR_INIT(0);
+	return cur_max_vertex++;
+}
+
+// assign new id 
+edge_t new_vertex_id()
+{
+	static std::atomic<edge_t> cur_max_edge = ATOMIC_VAR_INIT(0);
+	return cur_max_edge++;
+}
 
 } // namespace origin
 

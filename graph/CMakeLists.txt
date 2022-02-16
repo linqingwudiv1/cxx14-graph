@@ -21,9 +21,13 @@ add_library(graph
   common.hpp
   graph.hpp
   digraph.hpp
+  graphHashMap.hpp
   output.hpp
   dfs.hpp
   queue.hpp
+
+
+  ngraph.hpp
 )
 
 
