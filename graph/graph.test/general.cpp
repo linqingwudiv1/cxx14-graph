@@ -144,7 +144,6 @@ main()
   
   assert(g1.has_edge(0, 1));
   assert(g1.has_edge(1, 0));
-
   //assert(g1.first(0) == 0);
   //assert(g1.second(0) == 1);
   //assert(g1.opposite(0, 0) == 1);

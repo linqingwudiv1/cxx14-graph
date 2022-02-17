@@ -131,7 +131,7 @@ class tGraph
 
     typedef iterator node_iterator;
     typedef const_iterator const_node_iterator;
-
+    
     unsigned int num_vertices() const { return G_.size(); }
     unsigned int num_nodes() const { return G_.size(); }
     unsigned int num_edges() const { return num_edges_; }
@@ -314,7 +314,9 @@ class tGraph
       insert_edge(a, b);
     }
 
-
+    /*
+    * if vertex is not exist insert vertex 
+    */
     void insert_edge(const vertex &a, const vertex& b)
     {
       iterator pa = find(a);
@@ -463,9 +465,14 @@ class tGraph
         return includes_vertex(a);
    }
 
-   bool includes_elm(const vertex_set& out_neighbors, const vertex& a) const
+   /**
+        the set of A is contain a 
+        
+        @return true, if element a is in set A
+    */
+   bool includes_elm(const vertex_set& A, const vertex& a) const
    {
-       return ((out_neighbors.find(a) != out_neighbors.end()) ? true : false);
+       return ((A.find(a) != A.end()) ? true : false);
    }
 
    /**
@@ -478,7 +485,6 @@ class tGraph
    {
       return (includes_vertex(a)) ? 
           includes_elm(out_neighbors(a),b): false;
-      
       //const vertex_set &out = out_neighbors(a);
       // return ( out.find(b) != out.end());
 
